@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <!-- needed to appear in designer -->
+   <extension
+         point="com.ibm.commons.Extension">
+      <service
+            class="de.foconis.core.scheduler.Library"
+            type="com.ibm.xsp.Library">
+      </service>
+   </extension>
+   <!-- needed to register the servlet -->
+   <extension
+		point="com.ibm.commons.Extension">
+	  <service
+			type="com.ibm.xsp.adapter.servletFactory" class="de.foconis.core.servlet.ServletFactory">
+	  </service>
+   </extension>
+   <!-- needed to start automatically -->
+   <extension point="com.ibm.commons.Extension">
+         <service type="com.ibm.xsp.adapter.serviceFactory" class="de.foconis.osgi.services.SchedulerServiceFactory" />
+   </extension>
+</plugin>

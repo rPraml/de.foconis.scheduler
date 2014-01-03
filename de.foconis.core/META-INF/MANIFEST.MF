@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Foconis core classes
+Bundle-SymbolicName: de.foconis.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Foconis AG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Require-Bundle: com.ibm.commons,
+ com.ibm.xsp.core,
+ com.ibm.domino.xsp.adapter,
+ com.ibm.xsp.domino,
+ com.ibm.domino.napi,
+ com.ibm.domino.xsp.bridge.http;resolution:=optional
+Export-Package: de.foconis.core.http.client,
+ de.foconis.core.job,
+ de.foconis.core.schedule,
+ de.foconis.core.services,
+ de.foconis.core.util
+Import-Package: com.ibm.designer.runtime.domino.bootstrap.adapter
+
