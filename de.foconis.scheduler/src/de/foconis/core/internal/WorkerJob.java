@@ -23,6 +23,7 @@ import de.foconis.core.http.client.HttpResponse;
 import de.foconis.core.http.client.NSFServiceHttpClient;
 import de.foconis.core.job.NSFJob;
 import de.foconis.core.job.NSFJobGroup;
+import de.foconis.core.scheduler.XPageScheduler;
 import de.foconis.core.servlet.ServletFactory;
 
 /**
@@ -65,6 +66,8 @@ public class WorkerJob extends PeriodicRunnable {
 				instance.set(null);
 			}
 		}
+		// TODO RPr Dies ist unschön!!!
+		XPageScheduler.getInstance().reCalc();
 	}
 
 	/**

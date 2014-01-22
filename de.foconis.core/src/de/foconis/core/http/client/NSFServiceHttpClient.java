@@ -30,7 +30,6 @@ import lotus.domino.Session;
 import com.ibm.designer.runtime.domino.adapter.HttpService;
 import com.ibm.designer.runtime.domino.adapter.LCDEnvironment;
 import com.ibm.designer.runtime.domino.bootstrap.adapter.HttpSessionAdapter;
-import com.ibm.domino.xsp.module.nsf.NSFService;
 
 import de.foconis.core.internal.http.FakeNativeContextRequestAdapter;
 import de.foconis.core.internal.http.FakeRequestAdapter;
@@ -60,42 +59,25 @@ import de.foconis.core.internal.http.FakeSessionAdapter;
  */
 
 public class NSFServiceHttpClient {
-	private HttpService service;
+	// private HttpService service;
 	private String userName;
 	private List<Cookie> cookies = null;
+	private List<HttpService> services;
 
 	/**
 	 * Creates a new HTTP Client on the default serive, userName = server
 	 */
 	public NSFServiceHttpClient() {
-		this(null, null);
+		this(null);
 	}
 
 	/**
 	 * Creates a new HTTP Client n the default serive for a given userName
 	 */
 	public NSFServiceHttpClient(final String userName) {
-		this(null, userName);
-	}
-
-	/**
-	 * Creates a new HTTP Client, working on <code>service</code> and running under the context of <code>userName</code>
-	 * 
-	 * @param service
-	 * @param userName
-	 */
-	public NSFServiceHttpClient(final HttpService service, final String userName) {
-		this.service = service;
-
-		if (this.service == null) {
-			LCDEnvironment env = LCDEnvironment.getInstance();
-			for (HttpService s : env.getServices()) {
-				if (s instanceof NSFService) {
-					this.service = s;
-				}
-			}
-		}
-		this.userName = userName;
+		// this(null, userName);
+		LCDEnvironment env = LCDEnvironment.getInstance();
+		this.services = env.getServices();
 	}
 
 	/**
@@ -144,16 +126,22 @@ public class NSFServiceHttpClient {
 			FakeResponseAdapter httpResponse = new FakeResponseAdapter(httpRequest);
 
 			try {
-				service.doService(contextPath, path, httpSession, httpRequest, httpResponse);
+				for (HttpService service : this.services) {
+					if (service.doService(contextPath, path, httpSession, httpRequest, httpResponse)) {
+						break;
+					}
+				}
 			} catch (Exception e) {
 				httpResponse = new FakeResponseAdapter(httpRequest);
 
 				try {
+					e.printStackTrace();
 					PrintWriter writer = httpResponse.getWriter();
 					e.printStackTrace(writer);
+					writer.close();
 					httpResponse.sendError(500, e.getMessage());
 				} catch (IOException ioEx) {
-					e.printStackTrace();
+					ioEx.printStackTrace();
 				}
 				return httpResponse;
 			} finally {

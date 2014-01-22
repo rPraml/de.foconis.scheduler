@@ -67,7 +67,7 @@ public class XPageScheduler {
 				throw new IllegalStateException("Scheduler already started");
 			}
 			isStarted = true;
-			patrolJob = new PatrolJob(10000, jobQueue);
+			patrolJob = new PatrolJob(30000, jobQueue);
 			patrolJob.start("NSF Patrol-job");
 			workers.add(patrolJob);
 			log_.warning(patrolJob.getName() + " started.");

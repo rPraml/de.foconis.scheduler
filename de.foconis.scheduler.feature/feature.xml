@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="de.foconis.xsp.designer.feature"
+      id="de.foconis.xsp.scheduler.feature"
       label="Feature for Foconis scheduler"
       version="1.0.0.qualifier"
       provider-name="Foconis AG">
