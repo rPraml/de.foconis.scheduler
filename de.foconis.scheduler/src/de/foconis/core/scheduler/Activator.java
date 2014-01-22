@@ -9,12 +9,13 @@ import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.osgi.framework.console.CommandProvider;
-import org.openntf.domino.xsp.adapter.OsgiCommandProvider;
 //import org.openntf.xpt.agents.master.XPageAgentManager;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
 import com.ibm.domino.xsp.module.nsf.NotesContext;
+
+import de.foconis.osgi.services.OsgiCommandProvider;
 
 public class Activator extends Plugin {
 	private static final Logger log_ = Logger.getLogger(Activator.class.getName());
