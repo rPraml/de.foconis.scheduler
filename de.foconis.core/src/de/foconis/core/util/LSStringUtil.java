@@ -179,7 +179,7 @@ public class LSStringUtil {
 	 * @param search
 	 *            Liste mit Suchbgriffen
 	 * @param repl
-	 *            Liste mit Ersatzbegriffen
+	 *            String mit Ersatzbegriff
 	 * @return String mit Ersetzugen
 	 */
 	public static String replace(final String source, final List<String> search, final String repl) {
@@ -278,6 +278,62 @@ public class LSStringUtil {
 		}
 
 		return result.toString();
+	}
+
+	/**
+	 * Trennt den String an Zeilenumbrüchen.
+	 * 
+	 * @param s
+	 *            Der zu splittende String.
+	 * @return Liste mit Strings, die erzeugt wurden.
+	 */
+	public static String[] splitLines(final String s, final boolean keepBreaks) {
+
+		int line = 0;
+
+		for (int i = 0; i < s.length(); i++) {
+			switch (s.charAt(i)) {
+			case 13: // CR and maybe LF
+				if (i + 1 < s.length() && s.charAt(i + 1) == 10)
+					i++;
+			case 10: // LF
+				line++;
+				break;
+			}
+		}
+
+		String ret[] = new String[line];
+
+		int begin = 0;
+		line = 0;
+		for (int i = 0; i < s.length(); i++) {
+			switch (s.charAt(i)) {
+			case 13: // CR and maybe LF
+				if (i + 1 < s.length() && s.charAt(i + 1) == 10) {
+					if (keepBreaks) {
+						ret[line] = s.substring(begin, i + 2);
+					} else {
+						ret[line] = s.substring(begin, i);
+					}
+					i++;
+					begin = i + 1;
+					line++;
+					break;
+				}
+
+			case 10: // LF (or single cr)
+				if (keepBreaks) {
+					ret[line] = s.substring(begin, i + 1);
+				} else {
+					ret[line] = s.substring(begin, i);
+				}
+				begin = i + 1;
+				line++;
+				break;
+			}
+		}
+		ret[line] = s.substring(begin);
+		return ret;
 	}
 	/*
 	 * public static String toCanonical(final String name) { if (name.contains("/")) { if (!name.startsWith("CN=")) { // TODO: Factory Name
