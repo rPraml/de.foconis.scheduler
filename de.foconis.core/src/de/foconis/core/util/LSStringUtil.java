@@ -302,6 +302,8 @@ public class LSStringUtil {
 			}
 		}
 
+		if (line == 0)
+			line++;
 		String ret[] = new String[line];
 
 		int begin = 0;
@@ -332,6 +334,9 @@ public class LSStringUtil {
 				break;
 			}
 		}
+
+		if (begin == s.length())
+			begin--;
 		ret[line] = s.substring(begin);
 		return ret;
 	}
