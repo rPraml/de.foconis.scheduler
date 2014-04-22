@@ -12,6 +12,28 @@ import java.util.regex.Pattern;
  */
 public class LSStringUtil {
 
+	public static final boolean[] WORD_SEP = new boolean['}' + 1];
+	static {
+		WORD_SEP['\r'] = true;
+		WORD_SEP['\n'] = true;
+		WORD_SEP['\t'] = true;
+		WORD_SEP[' '] = true;
+		WORD_SEP['.'] = true;
+		WORD_SEP[','] = true;
+		WORD_SEP[';'] = true;
+		WORD_SEP[':'] = true;
+		WORD_SEP['!'] = true;
+		WORD_SEP['?'] = true;
+		WORD_SEP['('] = true;
+		WORD_SEP[')'] = true;
+		WORD_SEP['<'] = true;
+		WORD_SEP['>'] = true;
+		WORD_SEP['['] = true;
+		WORD_SEP[']'] = true;
+		WORD_SEP['{'] = true;
+		WORD_SEP['}'] = true;
+	}
+
 	/**
 	 * Liefert die Anzahl der angegebenen Zeichen von rechts
 	 * 
@@ -338,6 +360,67 @@ public class LSStringUtil {
 		if (begin == s.length())
 			begin--;
 		ret[line] = s.substring(begin);
+		return ret;
+	}
+
+	public static String[] splitWords(final String s) {
+		return splitWords(s, WORD_SEP);
+	}
+
+	/**
+	 * Trennt den String an Zeilenumbrüchen.
+	 * 
+	 * @param s
+	 *            Der zu splittende String.
+	 * @return Liste mit Strings, die erzeugt wurden.
+	 */
+	public static String[] splitWords(final String s, final boolean[] sepp) {
+
+		int words = 0;
+
+		boolean wordSeen = false;
+
+		for (int i = 0; i < s.length(); i++) {
+			char ch = s.charAt(i);
+
+			if (ch < sepp.length && sepp[ch]) {
+				words++;
+				wordSeen = false;
+			} else if (!wordSeen) {
+				words++;
+				wordSeen = true;
+			}
+		}
+
+		String ret[] = new String[words];
+
+		int begin = 0;
+		words = 0;
+		wordSeen = false;
+
+		for (int i = 0; i < s.length(); i++) {
+			char ch = s.charAt(i);
+
+			if (ch < sepp.length && sepp[ch]) {
+				if (wordSeen) {
+					// a word was before
+					ret[words - 1] = s.substring(begin, i);
+				}
+				ret[words] = String.valueOf(ch);
+				words++;
+				wordSeen = false;
+			} else if (!wordSeen) {
+				begin = i;
+				words++;
+				wordSeen = true;
+			}
+		}
+
+		if (wordSeen) {
+			// a word was before
+			ret[words - 1] = s.substring(begin);
+		}
+
 		return ret;
 	}
 	/*
