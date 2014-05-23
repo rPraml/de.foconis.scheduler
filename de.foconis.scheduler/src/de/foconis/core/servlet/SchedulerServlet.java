@@ -14,6 +14,8 @@ import lotus.domino.Session;
 
 import com.ibm.domino.xsp.module.nsf.NSFComponentModule;
 import com.ibm.domino.xsp.module.nsf.NotesContext;
+import com.ibm.domino.xsp.module.nsf.RuntimeFileSystem;
+import com.ibm.domino.xsp.module.nsf.RuntimeFileSystem.NSFResource;
 import com.ibm.xsp.controller.FacesController;
 import com.ibm.xsp.webapp.DesignerFacesServlet;
 
@@ -27,6 +29,8 @@ import de.foconis.core.services.ServiceLocator;
 //import de.foconis.core.quartz.ScheduleDefinition;
 //import de.foconis.core.services.Scope;
 //import de.foconis.core.services.ServiceLocator;
+import de.foconis.core.transponder.TransponderData;
+import de.foconis.core.transponder.TransponderRegistry;
 
 public class SchedulerServlet extends DesignerFacesServlet {
 	private static final Logger log_ = Logger.getLogger(SchedulerServlet.class.getName());
@@ -45,7 +49,8 @@ public class SchedulerServlet extends DesignerFacesServlet {
 		if ("invoke".equals(action)) {
 			invoke(req, res);
 		} else if ("register".equals(action)) {
-			register(req, res);
+			registerJobGroups(req, res);
+			registerTransponder(req, res);
 		}
 
 	}
@@ -57,12 +62,14 @@ public class SchedulerServlet extends DesignerFacesServlet {
 	 * @param res
 	 * @throws SchedulerException
 	 */
-	private void register(final ServletRequest req, final ServletResponse res) {
+	private void registerJobGroups(final ServletRequest req, final ServletResponse res) {
 
 		// the root of the definition is the META-INF/services file which MUST have a valid signature
-		String clazzFile = "META-INF/services/" + NSFJobGroup.class.getName();
+		String clazzFile = "META-INF/services/" + TransponderData.class.getName();
+		if (!setSigner(clazzFile))
+			return;
+
 		NotesContext ctx = NotesContext.getCurrent();
-		ctx.setSignerSessionRights(clazzFile);
 		NSFComponentModule module = ctx.getRunningModule();
 
 		String signer = null;
@@ -74,16 +81,70 @@ public class SchedulerServlet extends DesignerFacesServlet {
 		// here wo do some security checks (I like signers!)
 		if (signer == null) {
 			log_.severe("!!! The file " + module.getDatabasePath() + "/" + clazzFile + " is not signed!");
-			PatrolJob.getCurrentQueue().unRegisterDb(module.getDatabasePath());
+			PatrolJob.getCurrentQueue().unRegisterJobGroup(module.getDatabasePath());
 
 		} else {
 			List<NSFJobGroup> defs = ServiceLocator.findServices(NSFJobGroup.class, Scope.NONE);
 			// everything must be signed by the SAME user!!! - check it after loading all services
 			if (ctx.getSessionAsSigner() == null) {
 				log_.severe("!!! One or more classes listed in " + module.getDatabasePath() + "/" + clazzFile + " are not properly signed!");
-				PatrolJob.getCurrentQueue().unRegisterDb(module.getDatabasePath());
+				PatrolJob.getCurrentQueue().unRegisterJobGroup(module.getDatabasePath());
 			} else {
-				PatrolJob.getCurrentQueue().registerDb(module.getDatabasePath(), defs, signer);
+				PatrolJob.getCurrentQueue().registerJobGroup(module.getDatabasePath(), defs, signer);
+			}
+		}
+	}
+
+	protected boolean setSigner(final String clazzFile) {
+		NotesContext ctx = NotesContext.getCurrent();
+		NSFComponentModule module = ctx.getRunningModule();
+		RuntimeFileSystem fs = module.getRuntimeFileSystem();
+		NSFResource res = fs.getResource(clazzFile);
+		if ((res != null) && ((res instanceof RuntimeFileSystem.NSFFile))) {
+			ctx.setSignerSessionRights(clazzFile);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Registers the definitions at the XPage Scheduler.
+	 * 
+	 * @param req
+	 * @param res
+	 * @throws SchedulerException
+	 */
+	private void registerTransponder(final ServletRequest req, final ServletResponse res) {
+
+		// the root of the definition is the META-INF/services file which MUST have a valid signature
+
+		String clazzFile = "META-INF/services/" + TransponderData.class.getName();
+		if (!setSigner(clazzFile))
+			return;
+
+		NotesContext ctx = NotesContext.getCurrent();
+		NSFComponentModule module = ctx.getRunningModule();
+
+		String signer = null;
+		try {
+			Session signerSession = ctx.getSessionAsSigner();
+			signer = signerSession.getEffectiveUserName();
+		} catch (NotesException e) {
+		}
+		// here wo do some security checks (I like signers!)
+		if (signer == null) {
+			log_.severe("!!! The file " + module.getDatabasePath() + "/" + clazzFile + " is not signed!");
+			TransponderRegistry.unRegister(module.getDatabasePath());
+
+		} else {
+			List<TransponderData> defs = ServiceLocator.findServices(TransponderData.class, Scope.NONE);
+			// everything must be signed by the SAME user!!! - check it after loading all services
+			if (ctx.getSessionAsSigner() == null) {
+				log_.severe("!!! One or more classes listed in " + module.getDatabasePath() + "/" + clazzFile + " are not properly signed!");
+				TransponderRegistry.unRegister(module.getDatabasePath());
+			} else {
+				TransponderRegistry.register(module.getDatabasePath(), defs);
+
 			}
 		}
 	}

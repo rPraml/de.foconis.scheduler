@@ -41,6 +41,7 @@ import de.foconis.core.http.client.HttpResponse;
 import de.foconis.core.http.client.NSFServiceHttpClient;
 import de.foconis.core.scheduler.XPageScheduler;
 import de.foconis.core.servlet.ServletFactory;
+import de.foconis.core.transponder.TransponderRegistry;
 
 /**
  * The patrol job scans all NSFs and reads the NSFJobGroups in "META-INF/services"
@@ -114,7 +115,7 @@ public class PatrolJob extends PeriodicRunnable {
 			return currDb.getForm("de.foconis.form.xsp.default") != null;
 		} catch (NotesException e) {
 			// log_.log(Level.WARNING, "Cannot access database " + currDb, e);
-			return true;
+			return false;
 		}
 	}
 
@@ -184,7 +185,9 @@ public class PatrolJob extends PeriodicRunnable {
 			try {
 				if (!info.isSeen()) {
 					log_.fine("unRegistering NSF (deleted?): " + info.getDatabasePath());
-					queue.unRegisterDb(info.getDatabasePath());
+					queue.unRegisterJobGroup(info.getDatabasePath());
+					TransponderRegistry.unRegister(info.getDatabasePath());
+
 					it.remove();
 				} else if (info.isDirty()) {
 					log_.fine("registering NSF: " + info.getDatabasePath());
@@ -196,6 +199,7 @@ public class PatrolJob extends PeriodicRunnable {
 			}
 		}
 		XPageScheduler.getInstance().reCalc();
+		TransponderRegistry.update();
 	}
 
 	/**
@@ -207,6 +211,7 @@ public class PatrolJob extends PeriodicRunnable {
 	protected boolean queryNSF(String databasePath) {
 		try {
 			queueInstance.set(queue);
+
 			databasePath = XUtils.normalizeDbPath(databasePath);
 			String url = databasePath + ServletFactory.SERVLET_PATH;
 
