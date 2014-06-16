@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.osgi.framework.console.CommandProvider;
-//import org.openntf.xpt.agents.master.XPageAgentManager;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
