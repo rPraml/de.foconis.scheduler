@@ -380,8 +380,16 @@ public class LSStringUtil {
 
 		boolean wordSeen = false;
 
+		// 1. Wörter zählen, damit gleich ein Array passender Größe angelegt werden kann
 		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
+
+			if (ch == 13) {
+				// replace all CRLF / CR => LF
+				if (i + 1 < s.length() && s.charAt(i + 1) == 10)
+					i++;
+				ch = 10;
+			}
 
 			if (ch < sepp.length && sepp[ch]) {
 				words++;
@@ -398,8 +406,15 @@ public class LSStringUtil {
 		words = 0;
 		wordSeen = false;
 
+		// 2. Nochmal durchlaufen, Array befüllen.
 		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
+			if (ch == 13) {
+				// replace all CRLF / CR => LF
+				if (i + 1 < s.length() && s.charAt(i + 1) == 10)
+					i++;
+				ch = 10;
+			}
 
 			if (ch < sepp.length && sepp[ch]) {
 				if (wordSeen) {
@@ -423,10 +438,4 @@ public class LSStringUtil {
 
 		return ret;
 	}
-	/*
-	 * public static String toCanonical(final String name) { if (name.contains("/")) { if (!name.startsWith("CN=")) { // TODO: Factory Name
-	 * notesName = Factory.getSession().createName(name); return notesName.getCanonical(); } } return name; }
-	 * 
-	 * public static String getCurrentUserName() { return Factory.getSession().getEffectiveUserName(); }
-	 */
 }
