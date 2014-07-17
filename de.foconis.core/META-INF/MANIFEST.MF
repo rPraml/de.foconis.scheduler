@@ -16,6 +16,7 @@ Export-Package: de.foconis.core.http.client,
  de.foconis.core.job,
  de.foconis.core.schedule,
  de.foconis.core.services,
+ de.foconis.core.transponder,
  de.foconis.core.util
 Import-Package: com.ibm.designer.runtime.domino.bootstrap.adapter
 

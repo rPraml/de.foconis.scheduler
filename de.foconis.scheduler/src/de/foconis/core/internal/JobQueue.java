@@ -40,7 +40,7 @@ public class JobQueue {
 	private static final Logger log_ = Logger.getLogger(JobQueue.class.getName());
 	// all schedule entries
 	// the key is "scheduleEntry.getKey()"
-	private Map<String, List<JobGroup>> registeredDbs = new HashMap<String, List<JobGroup>>();
+	private Map<String, List<JobGroup>> registeredJobGroups = new HashMap<String, List<JobGroup>>();
 
 	Map<String, JobGroup> allJobs = new HashMap<String, JobGroup>();
 
@@ -73,7 +73,7 @@ public class JobQueue {
 			// die scheduleDefinitions sind stateless, darum dürfen wir die Objekte einfach ersetzen
 			allJobs.clear();
 
-			for (Entry<String, List<JobGroup>> jobGroupsEntry : registeredDbs.entrySet()) {
+			for (Entry<String, List<JobGroup>> jobGroupsEntry : registeredJobGroups.entrySet()) {
 				for (JobGroup jobGroup : jobGroupsEntry.getValue()) {
 					allJobs.put(jobGroup.getKey(), jobGroup);
 				}
@@ -235,13 +235,13 @@ public class JobQueue {
 	 * @param defs
 	 * @throws SchedulerException
 	 */
-	public void registerDb(String databasePath, final List<de.foconis.core.job.NSFJobGroup> defs, final String signer) {
+	public void registerJobGroup(String databasePath, final List<de.foconis.core.job.NSFJobGroup> defs, final String signer) {
 		databasePath = XUtils.normalizeDbPath(databasePath);
 
 		synchronized (this) {
 			// we must wrap the scheduleDefinition without using any class instantiated from the NSF
 			// (because the NSF-context is not running while building the schedule)
-			registeredDbs.put(databasePath, JobGroup.wrap(databasePath, defs, signer));
+			registeredJobGroups.put(databasePath, JobGroup.wrap(databasePath, defs, signer));
 			log_.warning("Database  " + databasePath + " registered with " + defs.size() + " job groups, Signer: " + signer);
 			update();
 		}
@@ -253,10 +253,10 @@ public class JobQueue {
 	 * @param trigName
 	 * @throws SchedulerException
 	 */
-	public void unRegisterDb(String databasePath) {
+	public void unRegisterJobGroup(String databasePath) {
 		databasePath = XUtils.normalizeDbPath(databasePath);
 		synchronized (this) {
-			List<JobGroup> jobs = registeredDbs.remove(databasePath);
+			List<JobGroup> jobs = registeredJobGroups.remove(databasePath);
 
 			if (jobs != null) {
 				log_.warning("Database " + databasePath + " unregistered with " + jobs.size() + " job groups");

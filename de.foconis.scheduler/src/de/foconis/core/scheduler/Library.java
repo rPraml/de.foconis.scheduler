@@ -26,7 +26,7 @@ public class Library extends AbstractXspLibrary {
 	@Override
 	public String[] getDependencies() {
 		return new String[] { "com.ibm.xsp.core.library", "com.ibm.xsp.extsn.library", "com.ibm.xsp.domino.library",
-				"com.ibm.xsp.designer.library", "de.foconis.core" };
+				"com.ibm.xsp.designer.library" };
 	}
 
 	/*
