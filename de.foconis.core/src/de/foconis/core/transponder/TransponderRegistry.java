@@ -88,7 +88,7 @@ public enum TransponderRegistry {
 
 	public static void update() {
 		updateIdMap();
-		System.out.println("ID-Map");
-		System.out.println(idMap);
+		// System.out.println("ID-Map");
+		// System.out.println(idMap);
 	}
 }
