@@ -32,9 +32,9 @@ public class SchedulerService extends HttpService {
 	 */
 	public SchedulerService(final LCDEnvironment arg0) {
 		super(arg0);
-		XPageScheduler.getInstance().start(5);
-		System.out.println("Foconis Scheduler service started");
-		log_.info("Foconis Scheduler service started");
+		// XPageScheduler.getInstance().start(5);
+		// System.out.println("Foconis Scheduler service started");
+		// log_.info("Foconis Scheduler service started");
 	}
 
 	@Override
