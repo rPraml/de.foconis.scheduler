@@ -18,7 +18,7 @@ package de.foconis.core.scheduler;
 import com.ibm.xsp.library.AbstractXspLibrary;
 
 /**
- * @author rpraml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class Library extends AbstractXspLibrary {

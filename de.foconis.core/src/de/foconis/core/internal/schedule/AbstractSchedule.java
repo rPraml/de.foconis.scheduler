@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 import de.foconis.core.schedule.Schedule;
 
 /**
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public abstract class AbstractSchedule implements Schedule {

@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,7 +18,8 @@ package de.foconis.core.internal;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * @author praml
+ * 
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public abstract class PeriodicRunnable implements Runnable {

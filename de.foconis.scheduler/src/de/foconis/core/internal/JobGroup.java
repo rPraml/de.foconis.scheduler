@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -22,9 +22,9 @@ import de.foconis.core.job.NSFJobGroup;
 import de.foconis.core.schedule.Schedule;
 
 /**
- * This represents a jobGroup outside a NSF. We must not use classes from NSF because they cannot be instantiiated
+ * This represents a jobGroup outside a NSF. We must not use classes from NSF because they cannot be instantiated.
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class JobGroup {

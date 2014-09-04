@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -21,7 +21,8 @@ import java.util.GregorianCalendar;
 import de.foconis.core.scheduler.JobStatus;
 
 /**
- * @author praml
+ * 
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class RunnableJobGroup implements Comparable<RunnableJobGroup> {

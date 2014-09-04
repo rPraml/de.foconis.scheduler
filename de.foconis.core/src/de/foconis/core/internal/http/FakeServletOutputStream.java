@@ -21,9 +21,9 @@ import java.io.OutputStream;
 import javax.servlet.ServletOutputStream;
 
 /**
- * A Wrapper for the servlet output stream
+ * A Wrapper for the servlet output stream.
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class FakeServletOutputStream extends ServletOutputStream {

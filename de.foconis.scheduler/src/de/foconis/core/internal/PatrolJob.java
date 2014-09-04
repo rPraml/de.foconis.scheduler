@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -44,7 +44,7 @@ import de.foconis.core.servlet.ServletFactory;
 import de.foconis.core.transponder.TransponderRegistry;
 
 /**
- * The patrol job scans all NSFs and reads the NSFJobGroups in "META-INF/services"
+ * The patrol job scans all NSFs and reads the NSFJobGroups in "META-INF/services".
  * 
  * @author Roland Praml, Foconis AG
  * 

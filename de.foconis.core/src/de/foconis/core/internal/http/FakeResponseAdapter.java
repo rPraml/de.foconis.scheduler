@@ -42,7 +42,7 @@ import de.foconis.core.http.client.HttpResponse;
 /**
  * This is the response that is returned by the service request.
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class FakeResponseAdapter implements HttpServletResponseAdapter, HttpResponse {

@@ -24,9 +24,9 @@ import javax.servlet.http.HttpSessionContext;
 import com.ibm.designer.runtime.domino.bootstrap.adapter.HttpSessionAdapter;
 
 /**
- * as far as I see, this class is totally dumb and does not anything useful than providing a ID: "_foc_amgr_id_"
+ * as far as I see, this class is totally dumb and does not anything useful than providing a ID: "_foc_amgr_id_".
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 @SuppressWarnings("deprecation")

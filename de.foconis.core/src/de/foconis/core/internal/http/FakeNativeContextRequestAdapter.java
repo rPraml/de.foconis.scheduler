@@ -27,7 +27,7 @@ import com.ibm.domino.napi.c.xsp.XSPNative;
 /**
  * Extension for the FakeRequestAdapter. It really fakes the request, so that everything is executed in the correct user-context
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class FakeNativeContextRequestAdapter extends FakeRequestAdapter implements DominoHttpXspNativeContext {

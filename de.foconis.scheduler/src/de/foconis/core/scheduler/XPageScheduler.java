@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -27,7 +27,8 @@ import de.foconis.core.internal.PeriodicRunnable;
 import de.foconis.core.internal.WorkerJob;
 
 /**
- * @author praml
+ * 
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class XPageScheduler {

@@ -1,5 +1,3 @@
-package de.foconis.core.util;
-
 /*
  * Copyright 2005 The Apache Software Foundation.
  * 
@@ -18,6 +16,7 @@ package de.foconis.core.util;
  * Original implementation
  * http://svn.apache.org/repos/asf/db/jdo/branches/2.0.1/core20/src/java/org/apache/jdo/util/WeakValueHashMap.java
  */
+package de.foconis.core.util;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
@@ -39,7 +38,7 @@ import java.util.Set;
  * @see java.util.HashMap
  * @see java.lang.ref.WeakReference
  * 
- * @author Roland Praml: Added genrics
+ * @author Roland Praml, FOCONIS AG (added genrics)
  */
 
 public class WeakValueHashMap<K, V> implements Map<K, V> {

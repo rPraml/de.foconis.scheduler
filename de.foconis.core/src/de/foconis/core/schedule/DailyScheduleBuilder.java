@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,7 +18,7 @@ package de.foconis.core.schedule;
 import de.foconis.core.internal.schedule.DailySchedule;
 
 /**
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class DailyScheduleBuilder extends ScheduleBuilder<DailyScheduleBuilder, DailySchedule> {

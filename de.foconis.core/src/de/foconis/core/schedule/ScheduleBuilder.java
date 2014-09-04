@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
 /**
  * You should not inherit from this class in a NSF!
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public abstract class ScheduleBuilder<T extends ScheduleBuilder<?, ?>, S extends Schedule> {

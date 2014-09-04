@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,7 +18,7 @@ package de.foconis.core.job;
 /**
  * Jobdefinition defines a job class and it's job data T is the type of the jobData type
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class NSFJobFactory {
