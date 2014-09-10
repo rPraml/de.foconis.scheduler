@@ -14,6 +14,14 @@ import java.util.HashMap;
 public class CaseInsensitiveHashMap<T> extends HashMap<String, T> {
 	private static final long serialVersionUID = 1L;
 
+	public CaseInsensitiveHashMap() {
+		super();
+	}
+
+	public CaseInsensitiveHashMap(final int size) {
+		super(size);
+	}
+
 	/**
 	 * puts the element in the map. Key is converted to lowercase
 	 * 
