@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,7 +25,7 @@ import lotus.notes.addins.DominoServer;
 /**
  * Methods in this class are not intedended to call from an XPage!
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  */
 public class XUtils {
 

@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 /**
  * This class represents a Job that runs inside a NSF and is definde in a NSFJobGroup
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public abstract class NSFJob {

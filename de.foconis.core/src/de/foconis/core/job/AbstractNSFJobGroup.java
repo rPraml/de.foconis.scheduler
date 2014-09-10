@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,7 +25,7 @@ import com.ibm.xsp.model.domino.DominoUtils;
 /**
  * Da diese Klasse aus der NSF heraus definiert wird, düfen wir diese Instanzen nur verwenden, wenn wir im Kontext der NSF sind
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public abstract class AbstractNSFJobGroup implements NSFJobGroup {

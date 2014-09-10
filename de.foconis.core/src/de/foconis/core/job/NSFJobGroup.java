@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -23,7 +23,7 @@ import de.foconis.core.schedule.Schedule;
  * For each scheduleDefinition a own class must be created in NSF!
  * 
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public interface NSFJobGroup {

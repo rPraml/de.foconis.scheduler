@@ -40,7 +40,7 @@ import com.ibm.designer.runtime.domino.bootstrap.adapter.HttpServletRequestAdapt
 /**
  * This is a requestAdapter for the default session (everything is done in the server's context with more rights)
  * 
- * @author praml
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class FakeRequestAdapter implements HttpServletRequestAdapter {

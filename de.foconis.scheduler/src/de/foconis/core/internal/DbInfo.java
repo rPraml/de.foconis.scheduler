@@ -1,4 +1,4 @@
-/**
+/*
  * © Copyright Foconis AG, 2013
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,7 +18,8 @@ package de.foconis.core.internal;
 import java.util.logging.Logger;
 
 /**
- * @author praml
+ * 
+ * @author Roland Praml, FOCONIS AG
  * 
  */
 public class DbInfo {
